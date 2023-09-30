@@ -9,26 +9,20 @@ buff = pygame.image.load("images\\buff.png")
 pygame.init()
 fonts = pygame.font.SysFont('segoe ui', 20, True)
 text = fonts.render('Play game', True, (255,255,255))
-easy = fonts.render('Easy', True, (255,0,0))
-medium = fonts.render('Medium', True, (255,0,0))
-hard = fonts.render('Hard', True, (255,0,0))
+easy = fonts.render('Easy', True, (0,170,240))
+medium = fonts.render('Medium', True, (0,170,240))
+hard = fonts.render('Hard', True, (0,170,240))
 window_x = 800      
 window_y = 600 
-black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
 red = pygame.Color(255, 0, 0)
-green = pygame.Color(0, 255,0)
-blue = pygame.Color(0, 0, 255)
-orange = pygame.Color(255, 128, 64)
-yellow = pygame.Color(255,255,0)
 width = 220
 height = 270
 color_light = (230,240,28)
 color_dark = (204,214,14)
-score=0
 bonus = 0
 score = 0
-speed_choose= False
+speed_choose = False
 
 game_state = "Start"
 start_background=pygame.image.load('images//start.png')
@@ -41,26 +35,25 @@ fps = pygame.time.Clock()
 bg = pygame.image.load("images\\bg.jpg")
 pygame.mixer.Channel(0).set_volume(0.1)
 pygame.mixer.Channel(0).play(pygame.mixer.Sound('media\\bg.mp3'), -1)
-
-
+#show score
 def show_score(choice, color, font, size):
 	score_font = pygame.font.SysFont(font, size, True)
 	score_surface = score_font.render('Score : ' + str(score), True, color)
 	score_rect = score_surface.get_rect()
 	game_window.blit(score_surface, score_rect)
-
+#game over
 def game_over():
 	my_font = pygame.font.SysFont('segoe ui', 50)
 	game_over_surface = my_font.render('Your score is : ' + str(score), True, red)
 	game_over_rect = game_over_surface.get_rect()
-	game_over_rect.midtop = (window_x/2, window_y/4)
+	game_over_rect.midtop = (window_x/2, window_y/4) #type: ignore
 	game_window.blit(game_over_surface, game_over_rect)
 	pygame.mixer.music.stop()
 	pygame.display.flip()
 	time.sleep(3)
 	pygame.quit()
 	quit()
-
+#eating
 def eat():
 	global bonus,score
 	pygame.mixer.Channel(1).set_volume(0.5)
@@ -71,7 +64,7 @@ def eat():
 	else:
 		score +=1
 		bonus += 1
-
+#choose speed
 def speeds():
 	global speed,game_state,speed_choose
 	game_window.blit(start_background, (0,0))
@@ -103,7 +96,7 @@ def speeds():
 			pygame.display.quit()
 			pygame.quit()
 			quit()
-
+#main
 def games():
 	global bonus,score
 	snake_position = [100, 50] 
@@ -186,11 +179,11 @@ speed=0
 game_window.blit(start_background, (0,0))
 
 def choose():
-	while game_state!="Game":
+	while game_state!="Games":
 		if speed_choose==True:
 			speeds()
 		pygame.display.update()
-
+#start menu
 while game_state=="Start":
 	for event in pygame.event.get():
 		mouse = pygame.mouse.get_pos()

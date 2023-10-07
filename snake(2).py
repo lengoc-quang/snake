@@ -1,6 +1,4 @@
 #Test
-import pygame
-import time
 import random
 from function import *
 

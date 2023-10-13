@@ -3,6 +3,13 @@ import time
 
 pygame.init()
 
+direction = 4
+change_to=4
+h1 = pygame.image.load("images\\h1.png")
+h2 = pygame.image.load("images\\h2.png")
+h3 = pygame.image.load("images\\h3.png")
+h4 = pygame.image.load("images\\h4.png")
+body = pygame.image.load("images\\body.png")
 apple = pygame.image.load("images\\apple.png")
 buff = pygame.image.load("images\\buff.png")
 wall = pygame.image.load("images\\wall.png")
@@ -37,6 +44,19 @@ fps = pygame.time.Clock()
 bg = pygame.image.load("images\\bg.jpg")
 pygame.mixer.Channel(0).set_volume(0.1)
 pygame.mixer.Channel(0).play(pygame.mixer.Sound('media\\bg.mp3'), -1)
+
+head_position = [100, 50]
+
+def draw_snake_head():
+	if direction == 1:
+		game_window.blit(h1,head_position)
+	if direction == 2:
+		game_window.blit(h2,head_position)
+	if direction == 3:
+		game_window.blit(h3,head_position)
+	if direction == 4:
+		game_window.blit(h4,head_position)
+
 #collision
 def collision(surface1, pos1, surface2, pos2):
     mask1 = pygame.mask.from_surface(surface1)
@@ -69,9 +89,9 @@ def eat():
 	global bonus,score
 	pygame.mixer.Channel(1).set_volume(0.5)
 	pygame.mixer.Channel(1).play(pygame.mixer.Sound('media\\pop.mp3'))
-	if bonus == 5:
-		score += 10
-		bonus = 0
-	else:
-		score +=1
+	if bonus != 5:
+		score += 1
 		bonus += 1
+	else:
+		score += 1
+		bonus = 0

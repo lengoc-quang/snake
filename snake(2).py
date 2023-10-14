@@ -97,7 +97,7 @@ def games():
 			fruit_spawn = False
 		else:
 			snake_body.pop()
-		if collision(apple, fruit_position, wall2, (210,145))==True or collision(apple, fruit_position, wall3, (210,390))==True:
+				if collision(wall2,(210,145),apple ,fruit_position)==True or collision(wall3,(210,390),apple ,fruit_position )==True:
 			fruit_spawn = False
 		if not fruit_spawn:
 			fruit_position = [random.randint(1, (window_x//10)) * 10,

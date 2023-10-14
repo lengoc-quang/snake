@@ -38,8 +38,7 @@ def speeds():
 def games():
 	global bonus,score,surf
 	snake_position = [100, 50] 
-	snake_body = [ [100, 50],
-					[90, 50],
+	snake_body = [	[90, 50],
 					[80, 50],
 					[70, 50]
 				]
@@ -73,30 +72,42 @@ def games():
 			direction = 4
 		if direction == 1:
 			snake_position[1] -= 10
+			head_position[1] -=10
 		if direction == 2:
 			snake_position[1] += 10
+			head_position[1] += 10
 		if direction == 3:
 			snake_position[0] -= 10
+			head_position[0] -= 10
 		if direction == 4:
 			snake_position[0] += 10
+			head_position[0] += 10
 		snake_body.insert(0, list(snake_position))
-		if collision(surf, snake_position, apple, fruit_position)==True or collision(surf, snake_position, buff, fruit_position):
+		if collision(h1, head_position, apple, fruit_position)==True or collision(h1, head_position, buff, fruit_position):
 			eat()
 			fruit_spawn = False
-		if collision(apple, fruit_position, wall2, (210,145))==True or collision(apple, fruit_position, wall3, (210,390))==True:
+		elif collision(h2, head_position, apple, fruit_position)==True or collision(h2, head_position, buff, fruit_position):
+			eat()
+			fruit_spawn = False
+		elif collision(h3, head_position, apple, fruit_position)==True or collision(h3, head_position, buff, fruit_position):
+			eat()
+			fruit_spawn = False
+		elif collision(h4, head_position, apple, fruit_position)==True or collision(h4, head_position, buff, fruit_position):
+			eat()
 			fruit_spawn = False
 		else:
 			snake_body.pop()
+		if collision(apple, fruit_position, wall2, (210,145))==True or collision(apple, fruit_position, wall3, (210,390))==True:
+			fruit_spawn = False
 		if not fruit_spawn:
-			fruit_position = [random.randrange(1, (window_x//10)) * 10,
-							random.randrange(1, (window_y//10)) * 10]
+			fruit_position = [random.randint(1, (window_x//10)) * 10,
+							random.randint(1, (window_y//10)) * 10]
 			fruit_spawn = True
 		game_window.blit(bg, (0,0))
 	# vẽ rắn
 		for pos in snake_body:
-			snake = pygame.draw.rect(game_window, white, pygame.Rect(
-			pos[0], pos[1], 10, 10))
-			surf = pygame.Surface((snake.w, snake.h))
+			game_window.blit(body, (pos[0],pos[1]))
+		draw_snake_head()
 	# vẽ táo
 		if bonus!=5:
 			game_window.blit(apple, (fruit_position[0],fruit_position[1]))
@@ -105,7 +116,13 @@ def games():
 	# vẽ vật cản
 		game_window.blit(wall2, (210,145))
 		game_window.blit(wall3, (210,390))
-		if collision(surf, snake_position, wall2, (210,145))==True or collision(surf, snake_position, wall3, (210,390))==True:
+		if collision(h1, snake_position, wall2, (210,145))==True or collision(h1, snake_position, wall3, (210,390))==True:
+			game_over()
+		elif collision(h2, snake_position, wall2, (210,145))==True or collision(h2, snake_position, wall3, (210,390))==True:
+			game_over()
+		elif collision(h3, snake_position, wall2, (210,145))==True or collision(h3, snake_position, wall3, (210,390))==True:
+			game_over()
+		elif collision(h4, snake_position, wall2, (210,145))==True or collision(h4, snake_position, wall3, (210,390))==True:
 			game_over()
 	# vẽ tường
 		game_window.blit(wall, (0,0))

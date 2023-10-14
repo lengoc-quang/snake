@@ -6,4 +6,4 @@
 
 ### Install Pygame:
   > python -m pip install pygame
-(Window and Mac only)
+*(Window and Mac only)*

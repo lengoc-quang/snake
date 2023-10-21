@@ -1,13 +1,12 @@
 #Test
 from game import *
-
 speed=0        
 game_window.blit(start_background, (0,0))
 #choose speed
 def choose():
 	while game_state!="Games":
 		if speed_choose==True:
-			speeds()
+			speeds_2()
 		pygame.display.update()
 #start menu
 while game_state=="Start":
